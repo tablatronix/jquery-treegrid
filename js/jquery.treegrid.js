@@ -112,9 +112,13 @@
             if (expander) {
                 expander.remove();
             }
+
+            // expander click, prevent selection events from bubbling up to td
             $(tpl).prependTo(cell).click(function() {
                 $($(this).closest('tr')).treegrid('toggle');
-            });
+            }).bind('selectstart dragstart', function(evt)
+              { evt.preventDefault(); return false; });
+
             return $this;
         },
         /**
